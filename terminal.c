@@ -11,6 +11,6 @@ int main(){
         printf(">>> ");
         scanf("%s", entrada_usuario);  
         //int comando = fork();
-        //printf("%d\n",comando);
+     aa   //printf("%d\n",comando);
     }
 }
