@@ -9,6 +9,37 @@ typedef struct entrada{
     int quantidade_elementos;
 }entrada;
 
+
+int conta_argumentos(char **lista_de_args){
+    int contador = 0;
+    while(lista_de_args[contador] != NULL){
+        contador ++;
+    }
+    return contador;
+}
+
+
+entrada *aloca_entrada(char **lista_de_args){
+    entrada *argumentos = malloc(sizeof(entrada));
+    argumentos->programa = malloc(sizeof(char)*10);
+    strcpy(argumentos->programa, lista_de_args[0]);
+    printf("%s\n",argumentos->programa);
+    argumentos->quantidade_elementos = conta_argumentos(lista_de_args);
+    printf("%d\n",argumentos->quantidade_elementos);
+    argumentos->args = malloc(sizeof(char*) * argumentos->quantidade_elementos);
+
+    for(int iterador = 0; iterador < argumentos->quantidade_elementos; iterador++ ){
+        argumentos->args[iterador] = malloc(sizeof(char)*10);
+        strcpy(argumentos->args[iterador], lista_de_args[iterador+1]);
+        printf("%s\n",argumentos->args[iterador]);
+        if(argumentos->args[iterador] == NULL){
+            printf("Erro ao alocar memoria\n");
+        }
+    }
+    return argumentos;
+}
+
+
 char **quebra_entrada(char entrada[]) {
     char **saida = malloc(sizeof(char *) * 6); // Aumentado para 6 para lidar com o caso de 5 palavras
     int iterador = 0; // Inicialização corrigida para 0
@@ -43,30 +74,26 @@ void printa_saida(char **saida) {
 }
 
 
-entrada *criar_entrada(char entrada_completa[]){
-
-    entrada *entrada_usuario = malloc(sizeof(entrada)); //alocar pra estrutura
-    entrada_usuario->programa = malloc(sizeof(char)*10);
-
-    //Função encontrar programa
-
-    entrada_usuario->args = malloc(sizeof(char*)*10);
-    for(int i = 0; i < 10; i++){
-        entrada_usuario->args[i] = malloc(sizeof(char)*10);
-        //Função adicionar argumentos
-
+void printa_struct(entrada* Entrada){
+    printf("executavel: %s\n", Entrada->programa);
+    for(int iterador = 0; iterador < Entrada->quantidade_elementos; iterador++){
+        printf("argumento %d: %s\n", iterador, Entrada->args[iterador]);
     }
-    //Função que ver a quantidade de argumentos
-    entrada_usuario->quantidade_elementos = 0;
-    return entrada_usuario;
-
+    printf("quantidade de argumentos: %d\n", Entrada->quantidade_elementos);
 }
 
 
 int main() {
     char entradas[50] = "Luan Carlos Alencar";
     char **aaa = quebra_entrada(entradas);
-    printa_saida(aaa);
+    entrada *teste = aloca_entrada(aaa);
+    //printa_saida(aaa);
+    //printf("%d", conta_argumentos(aaa));
+    //printa_struct(teste);
+    
+
+
+
 
     // Liberar a memória alocada
     for (int i = 0; i < 6; i++) {
