@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 /*
 este arquivo contem as funcoes que serao chamadas no arquivo terminal.c
@@ -9,14 +10,22 @@ void ls(){
     printf("listando arquivos:\n");
 }
 
-
 void cd(){
+
+
     printf("mudando para diretorio escolhido:\n");
 }
 
 
 void pwd(){
-    printf("mostrando caminho do diretorio atual:\n");
+
+    char cwd[300];
+
+    if(getcwd(cwd, sizeof(cwd)) == NULL){
+        perror("getcwd() error");
+    }else{
+        printf("Diretório Atual: %s\n", cwd);
+    }
 }
 
 
