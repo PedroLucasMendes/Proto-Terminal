@@ -30,7 +30,6 @@ int GetQuantItens(entrada *strc_quant){
     return strc_quant->quantidade_elementos;
 }
 
-
 entrada *aloca_entrada(char **lista_de_args){
     entrada *argumentos = malloc(sizeof(entrada));
     argumentos->programa = malloc(sizeof(char)*10);
@@ -93,26 +92,3 @@ void printa_struct(entrada* Entrada){
     }
     printf("quantidade de argumentos: %d\n", Entrada->quantidade_elementos);
 }
-
-
-int main() {
-    char entradas[50] = "Luan Carlos Alencar";
-    char **aaa = quebra_entrada(entradas);
-    entrada *teste = aloca_entrada(aaa);
-    printa_saida(aaa);
-    printf("%d", conta_argumentos(aaa));
-    printa_struct(teste);
-    
-
-
-
-
-    // Liberar a memória alocada
-    for (int i = 0; i < 6; i++) {
-        free(aaa[i]);
-    }
-    free(aaa);
-
-    return 0;
-}
-
