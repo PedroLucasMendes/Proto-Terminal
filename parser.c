@@ -18,6 +18,18 @@ int conta_argumentos(char **lista_de_args){
     return contador;
 }
 
+char *GetPrograma(entrada *strc_program){
+    return strc_program->programa;
+}
+
+char **GetArgs(entrada *strc_args){
+    return strc_args->args;
+}
+
+int GetQuantItens(entrada *strc_quant){
+    return strc_quant->quantidade_elementos;
+}
+
 
 entrada *aloca_entrada(char **lista_de_args){
     entrada *argumentos = malloc(sizeof(entrada));
