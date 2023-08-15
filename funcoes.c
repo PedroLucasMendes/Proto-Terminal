@@ -11,8 +11,6 @@ void ls(){
 }
 
 void cd(){
-
-
     printf("mudando para diretorio escolhido:\n");
 }
 
@@ -31,16 +29,13 @@ void pwd(){
 
 int leitura_string(char *entrada_usuario){
     if(strcmp(entrada_usuario, "ls") == 0){
-        ls();
         return 1;
     }
     else if(strcmp(entrada_usuario, "cd") == 0){
-        cd();
-        return 1;
+        return 2;
     }
     else if(strcmp(entrada_usuario, "pwd") == 0){
-        pwd();
-        return 1;
+        return 3;
     }
     return 0;
     

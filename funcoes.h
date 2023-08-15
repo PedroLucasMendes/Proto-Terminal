@@ -5,3 +5,5 @@
 
 int leitura_string(char *entrada_usuario);
 void ls();
+void cd();
+void pwd();
