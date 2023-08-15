@@ -29,15 +29,19 @@ void pwd(){
 }
 
 
-void leitura_string(char *entrada_usuario){
+int leitura_string(char *entrada_usuario){
     if(strcmp(entrada_usuario, "ls") == 0){
         ls();
+        return 1;
     }
     else if(strcmp(entrada_usuario, "cd") == 0){
         cd();
+        return 1;
     }
     else if(strcmp(entrada_usuario, "pwd") == 0){
         pwd();
+        return 1;
     }
+    return 0;
     
 }

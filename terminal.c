@@ -10,7 +10,7 @@ int main(){
     printf(">>> ");
     while(scanf("%[^\n]%*c", entrada_usuario), strcmp(entrada_usuario, "exit") != 0){
         entrada_t *program_args = quebra_entrada(entrada_usuario);
-        printa_struct(program_args);
+        leitura_string(GetPrograma(program_args));
         printf(">>> ");
     }
 }
