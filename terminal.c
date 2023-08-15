@@ -3,14 +3,14 @@
 #include <string.h>
 #include <unistd.h>
 #include "funcoes.h"
-
+#include "parser.h"
 
 int main(){
-    char *entrada_usuario;
-    entrada_usuario = malloc(sizeof(char)*100);
+    char entrada_usuario[100];
     printf(">>> ");
     while(scanf("%[^\n]%*c", entrada_usuario), strcmp(entrada_usuario, "exit") != 0){
+        entrada_t *program_args = quebra_entrada(entrada_usuario);
+        printa_struct(program_args);
         printf(">>> ");
-        leitura_string(entrada_usuario);
     }
 }
