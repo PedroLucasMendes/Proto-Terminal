@@ -7,3 +7,4 @@ int leitura_string(char *entrada_usuario);
 void ls();
 void cd();
 void pwd();
+int VerificaExecutavel(char *string, char*armazem);

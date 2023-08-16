@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <dirent.h>
 
 /*
 este arquivo contem as funcoes que serao chamadas no arquivo terminal.c
@@ -37,6 +38,37 @@ int leitura_string(char *entrada_usuario){
     else if(strcmp(entrada_usuario, "pwd") == 0){
         return 3;
     }
+    return 0;
+    
+}
+
+int VerificaExecutavel(char *string, char*armazem){
+    DIR *d;
+    struct dirent *dir;
+    char program[100];
+    char result[100] = "./";
+    d = opendir(".");
+    if(string[0] == '.' && string[1] == '/'){
+        int i = 2;
+        for(i; i < strlen(string);i++){
+            program[i-2] = string[i];
+        }
+        program[i-2] = '\0';
+    }
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            if(strcmp(dir->d_name,string) == 0){
+                strcat(result,string);
+                strcpy(armazem,result);
+                return 1;
+            }else if(strcmp(dir->d_name,program) == 0){
+                strcpy(armazem,string);
+                return 1;
+            }
+        }
+        closedir(d);
+    }
+    printf("Não existe esse executavel\n");
     return 0;
     
 }
