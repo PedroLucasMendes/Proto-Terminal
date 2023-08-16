@@ -16,7 +16,8 @@ int main(){
         if(cont == 1){
             ls();
         }else if(cont == 2){
-            cd(GetArgs(program_args));
+            char** vetor = GetArgs(program_args);
+            cd(vetor[0]);
         }else if(cont == 3){
             pwd();
         }else if(VerificaExecutavel(GetPrograma(program_args),executavel)){

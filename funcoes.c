@@ -11,8 +11,13 @@ void ls(){
     printf("listando arquivos:\n");
 }
 
-void cd(){
-    printf("mudando para diretorio escolhido:\n");
+void cd(char* caminho){
+    if(chdir(caminho)==0){
+        printf("Caminho alterado para %s\n",caminho);
+    }
+    else{
+        perror("erro papai");
+    }
 }
 
 
