@@ -103,10 +103,22 @@ int VerificaIO(char **args, int quantArgs){
 }
 
 int VerificaPipe(char **args, int quantArgs){
+    int cont = 0;
     for(int i = 0; i < quantArgs; i++){
         if(strcmp(args[i],"|") == 0){
-            return i;
+            cont++;
         }
     }
-    return 0;
+    return cont;
 }
+
+void executa_pipe(char* exec, char** args){
+
+       int pd[2];
+
+
+
+}
+
+
+

@@ -80,6 +80,21 @@ int main(){
             }
         }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
             printf("Pipe");
+
+            int rc = fork();
+            if(rc < 0){
+                perror("Pipe");
+                exit(1);
+
+            }else if(rc == 0){
+
+            }
+
+
+
+
+
+
         }else{
             int rc = fork();
             if (rc < 0) {// fork falhou
