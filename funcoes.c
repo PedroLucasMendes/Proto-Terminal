@@ -76,3 +76,21 @@ int VerificaExecutavel(char *string){
     return 0;
     
 }
+
+int VerificaIO(char **args, int quantArgs){
+    for(int i = 0; i < quantArgs; i++){
+        if(strcmp(args[i],">") == 0 || strcmp(args[i],"<") == 0){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int VerificaPipe(char **args, int quantArgs){
+    for(int i = 0; i < quantArgs; i++){
+        if(strcmp(args[i],"|") == 0){
+            return 1;
+        }
+    }
+    return 0;
+}
