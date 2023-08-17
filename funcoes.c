@@ -47,7 +47,7 @@ int leitura_string(char *entrada_usuario){
     
 }
 
-int VerificaExecutavel(char *string, char*armazem){
+int VerificaExecutavel(char *string){
     DIR *d;
     struct dirent *dir;
     char program[100];
@@ -64,10 +64,10 @@ int VerificaExecutavel(char *string, char*armazem){
         while ((dir = readdir(d)) != NULL) {
             if(strcmp(dir->d_name,string) == 0){
                 strcat(result,string);
-                strcpy(armazem,result);
+                strcpy(string,result);
                 return 1;
             }else if(strcmp(dir->d_name,program) == 0){
-                strcpy(armazem,string);
+                strcpy(string,string);
                 return 1;
             }
         }

@@ -20,17 +20,18 @@ int main(){
             cd(vetor[0]);
         }else if(cont == 3){
             pwd();
-        }else if(VerificaExecutavel(GetPrograma(program_args),executavel)){
+        }else if(VerificaExecutavel(GetPrograma(program_args),executavel) && GetQuantItens(program_args) > 0){
             
             int rc = fork();
             if (rc < 0) {// fork falhou
                 fprintf(stderr, "fork falhou\n");
                 exit(1);
             } else if (rc == 0) { // filho
-                char *myargs[GetQuantItens(program_args)+1];
+                char *myargs[2];
                 int i = 1;
                 char **args = GetArgs(program_args);
                 myargs[0] = strdup(executavel);   // programa: "wc"
+                myargs[1] = NULL;   // programa: "wc"
                 for(i; i <= GetQuantItens(program_args); i++){
                     myargs[i] = strdup(args[i-1]);
                 }
