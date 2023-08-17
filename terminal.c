@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 #include "funcoes.h"
 #include "parser.h"
 
@@ -75,6 +76,23 @@ int main(){
             }
         }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
             printf("Entrada/Saída");
+            /*
+            int rc = fork();
+            if (rc < 0) {
+                fprintf(stderr, "fork falhou\n");
+                exit(1);
+            } else if (rc == 0) {// Filho: Saida para um arquivo
+                close(STDOUT_FILENO); 
+                open(GetArgs(program_args)[1], O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
+                char *myargs[2];
+                myargs[0] = strdup(GetPrograma(program_args)); // argumento: arquivo a contar
+                myargs[1] = NULL;           // fim do vetor
+                execvp(myargs[0], myargs);  // executa wc
+                printf("oie");
+            } else { // Processo original vem por aqui
+            }
+            return 0;
+            */
         }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
             printf("Pipe");
         }else{
