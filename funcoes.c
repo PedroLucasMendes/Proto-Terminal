@@ -114,8 +114,32 @@ int VerificaPipe(char **args, int quantArgs){
 
 void executa_pipe(char* exec, char** args){
 
-       int pd[2];
+    int fd[2];
+    int pid;
 
+    if(pipe(fd) < 0){
+        perror("pipe");
+        return -1;
+    }
+
+    int rc = fork();
+    if (rc < 0) {// fork falhou
+        fprintf(stderr, "fork falhou\n");
+        exit(1);
+    } else if (rc == 0) { // filho
+        char *myargs[GetQuantItens(program_args)];
+        int i = 1;
+        char **args = GetArgs(program_args);
+        VerificaIO(GetArgs(program_args),GetQuantItens(program_args));
+        myargs[0] = strdup(GetPrograma(program_args));   // programa: "wc"
+        for(i; i <= GetQuantItens(program_args); i++){
+            myargs[i] = strdup(args[i-1]);
+        }
+        myargs[i] = NULL;
+        execvp(myargs[0], myargs);  // roda wc
+        printf("Isso nao deve ser imprimido");
+    } else {// Pai vem por aqui
+    }
 
 
 }
