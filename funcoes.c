@@ -7,12 +7,23 @@
 /*
 este arquivo contem as funcoes que serao chamadas no arquivo terminal.c
 */
-void ls(){
-    printf("listando arquivos:\n");
+void ls(char** args){
+    int rc = fork();
+    if (rc < 0) {// fork falhou
+        fprintf(stderr, "fork falhou\n");
+        exit(1);
+    } 
+    else if (rc == 0) { // filho
+        execvp("ls",args);  // roda wc
+        printf("Isso nao deve ser imprimido");
+    } 
+    else {
+        int wc = wait(NULL);
+    }
 }
 
 void cd(char* caminho){
-    if(chdir(caminho)==0){
+    if(chdir(caminho) == 0){
         printf("Caminho alterado para %s\n",caminho);
     }
     else{
@@ -34,7 +45,7 @@ void pwd(){
 
 
 int leitura_string(char *entrada_usuario){
-    if(strcmp(entrada_usuario, "ls") == 0){
+    if(strcmp(entrada_usuario, "ls")==0){
         return 1;
     }
     else if(strcmp(entrada_usuario, "cd") == 0){
