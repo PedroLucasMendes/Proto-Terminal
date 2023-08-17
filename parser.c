@@ -35,15 +35,12 @@ entrada_t *aloca_entrada(char **lista_de_args){
     entrada_t *argumentos = malloc(sizeof(entrada_t));
     argumentos->programa = malloc(sizeof(char)*10);
     strcpy(argumentos->programa, lista_de_args[0]);
-    printf("%s\n",argumentos->programa);
     argumentos->quantidade_elementos = conta_argumentos(lista_de_args);
-    printf("%d\n",argumentos->quantidade_elementos);
     argumentos->args = malloc(sizeof(char*) * argumentos->quantidade_elementos);
 
     for(int iterador = 0; iterador < argumentos->quantidade_elementos; iterador++ ){
         argumentos->args[iterador] = malloc(sizeof(char)*10);
         strcpy(argumentos->args[iterador], lista_de_args[iterador+1]);
-        printf("%s\n",argumentos->args[iterador]);
         if(argumentos->args[iterador] == NULL){
             printf("Erro ao alocar memoria\n");
         }

@@ -73,7 +73,6 @@ int VerificaExecutavel(char *string){
         }
         closedir(d);
     }
-    printf("Não existe esse executavel\n");
     return 0;
     
 }
