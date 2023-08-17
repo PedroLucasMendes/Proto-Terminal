@@ -75,4 +75,4 @@ int VerificaExecutavel(char *string){
     }
     return 0;
     
-}//oie borel
+}

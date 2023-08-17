@@ -26,10 +26,14 @@ int main(){
                     fprintf(stderr, "fork falhou\n");
                     exit(1);
                 } else if (rc == 0) { // filho
-                    char *myargs[2];
+                    char *myargs[GetQuantItens(program_args)];
+                    int i = 1;
                     char **args = GetArgs(program_args);
                     myargs[0] = strdup(GetPrograma(program_args));   // programa: "wc"
-                    myargs[1] = NULL;
+                    for(i; i <= GetQuantItens(program_args); i++){
+                        myargs[i] = strdup(args[i-1]);
+                    }
+                    myargs[i] = NULL;
                     execvp(myargs[0], myargs);  // roda wc
                     printf("Isso nao deve ser imprimido");
                 } else {// Pai vem por aqui
