@@ -90,8 +90,13 @@ int VerificaExecutavel(char *string){
 
 int VerificaIO(char **args, int quantArgs){
     for(int i = 0; i < quantArgs; i++){
-        if(strcmp(args[i],">") == 0 || strcmp(args[i],"<") == 0){
+        if(strcmp(args[i],">") == 0){
+            close(STDOUT_FILENO); 
+            open(args[i+1], O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
             return 1;
+        }else if(strcmp(args[i],"<") == 0){
+            close(STDIN_FILENO); 
+            open(args[i+1],O_RDONLY);
         }
     }
     return 0;
@@ -100,7 +105,7 @@ int VerificaIO(char **args, int quantArgs){
 int VerificaPipe(char **args, int quantArgs){
     for(int i = 0; i < quantArgs; i++){
         if(strcmp(args[i],"|") == 0){
-            return 1;
+            return i;
         }
     }
     return 0;

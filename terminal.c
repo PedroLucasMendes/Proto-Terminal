@@ -20,7 +20,8 @@ int main(){
             cd(vetor[0]);
         }else if(cont == 3){
             pwd();
-        }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
+        }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
+            
             if(strcmp(GetArgs(program_args)[0],"&") == 0){
                 int rc = fork();
                 if (rc < 0) {// fork falhou
@@ -30,6 +31,7 @@ int main(){
                     char *myargs[GetQuantItens(program_args)];
                     int i = 1;
                     char **args = GetArgs(program_args);
+                    VerificaIO(GetArgs(program_args),GetQuantItens(program_args));
                     myargs[0] = strdup(GetPrograma(program_args));   // programa: "wc"
                     for(i; i <= GetQuantItens(program_args); i++){
                         myargs[i] = strdup(args[i-1]);
@@ -48,6 +50,7 @@ int main(){
                     char *myargs[GetQuantItens(program_args)];
                     int i = 1;
                     char **args = GetArgs(program_args);
+                    VerificaIO(GetArgs(program_args),GetQuantItens(program_args));
                     myargs[0] = strdup(GetPrograma(program_args));   // programa: "wc"
                     for(i; i <= GetQuantItens(program_args); i++){
                         myargs[i] = strdup(args[i-1]);
@@ -59,7 +62,7 @@ int main(){
                     int wc = wait(NULL);
                 }
             }
-        }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) == 0 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
+        }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) == 0 && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
             int rc = fork();
             if (rc < 0) {// fork falhou
                 fprintf(stderr, "fork falhou\n");
@@ -67,6 +70,7 @@ int main(){
             } else if (rc == 0) { // filho
                 char *myargs[2];
                 char **args = GetArgs(program_args);
+                VerificaIO(GetArgs(program_args),GetQuantItens(program_args));
                 myargs[0] = strdup(GetPrograma(program_args));   // programa: "wc"
                 myargs[1] = NULL;
                 execvp(myargs[0], myargs);  // roda wc
@@ -74,25 +78,6 @@ int main(){
             } else {// Pai vem por aqui
                 int wc = wait(NULL);
             }
-        }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
-            printf("Entrada/Saída");
-            /*
-            int rc = fork();
-            if (rc < 0) {
-                fprintf(stderr, "fork falhou\n");
-                exit(1);
-            } else if (rc == 0) {// Filho: Saida para um arquivo
-                close(STDOUT_FILENO); 
-                open(GetArgs(program_args)[1], O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
-                char *myargs[2];
-                myargs[0] = strdup(GetPrograma(program_args)); // argumento: arquivo a contar
-                myargs[1] = NULL;           // fim do vetor
-                execvp(myargs[0], myargs);  // executa wc
-                printf("oie");
-            } else { // Processo original vem por aqui
-            }
-            return 0;
-            */
         }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
             printf("Pipe");
         }else{

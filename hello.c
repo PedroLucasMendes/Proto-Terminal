@@ -1,6 +1,9 @@
 #include "stdio.h"
 
 int main(int argc, char *argv[]){
-    printf("%s",argv[1]);
+    int numero;
+    scanf("%d",&numero);
+
+    printf("%d \n",numero);
     return 0;
 }
