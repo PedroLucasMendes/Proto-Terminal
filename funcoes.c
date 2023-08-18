@@ -24,7 +24,7 @@ void ls(char** args){
 
 void cd(char* caminho){
     if(chdir(caminho) == 0){
-        printf("Caminho alterado para %s\n",caminho);
+        //printf("Caminho alterado para %s\n",caminho);
     }
     else{
         perror("erro papai");
@@ -103,45 +103,14 @@ int VerificaIO(char **args, int quantArgs){
 }
 
 int VerificaPipe(char **args, int quantArgs){
-    int cont = 0;
+    int cont = 1;
     for(int i = 0; i < quantArgs; i++){
         if(strcmp(args[i],"|") == 0){
-            cont++;
+            return cont;
         }
+        cont++;
     }
-    return cont;
-}
-
-void executa_pipe(char* exec, char** args){
-
-    int fd[2];
-    int pid;
-
-    if(pipe(fd) < 0){
-        perror("pipe");
-        return -1;
-    }
-
-    int rc = fork();
-    if (rc < 0) {// fork falhou
-        fprintf(stderr, "fork falhou\n");
-        exit(1);
-    } else if (rc == 0) { // filho
-        char *myargs[GetQuantItens(program_args)];
-        int i = 1;
-        char **args = GetArgs(program_args);
-        VerificaIO(GetArgs(program_args),GetQuantItens(program_args));
-        myargs[0] = strdup(GetPrograma(program_args));   // programa: "wc"
-        for(i; i <= GetQuantItens(program_args); i++){
-            myargs[i] = strdup(args[i-1]);
-        }
-        myargs[i] = NULL;
-        execvp(myargs[0], myargs);  // roda wc
-        printf("Isso nao deve ser imprimido");
-    } else {// Pai vem por aqui
-    }
-
-
+    return 0;
 }
 
 
