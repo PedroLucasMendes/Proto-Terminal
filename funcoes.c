@@ -8,22 +8,21 @@
 este arquivo contem as funcoes que serao chamadas no arquivo terminal.c
 */
 void ls(char** args, int num_args){
-    char** new_args = (char**)malloc((num_args + 1) * sizeof(char*));
+    char** new_args = (char**)malloc((num_args + 2) * sizeof(char*));
     if (new_args == NULL) {
         perror("malloc");
         exit(1);
     }
 
-    for (int i = 0; i < num_args; i++) {
-        printf("%s item %d", args[i], num_args);
-        new_args[i] = strdup(args[i]);
+    new_args[0] = "ls";
+    for (int i = 1; i < num_args+1; i++) {
+        new_args[i] = strdup(args[i-1]);
         if (new_args[i] == NULL) {
             perror("strdup");
             exit(1);
         }
     }
-    new_args[num_args] = NULL;
-
+    new_args[num_args+2] = 0;
     int rc = fork();
     if (rc < 0) {// fork falhou
         fprintf(stderr, "fork falhou\n");
