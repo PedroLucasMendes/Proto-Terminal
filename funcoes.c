@@ -7,14 +7,30 @@
 /*
 este arquivo contem as funcoes que serao chamadas no arquivo terminal.c
 */
-void ls(char** args){
+void ls(char** args, int num_args){
+    char** new_args = (char**)malloc((num_args + 1) * sizeof(char*));
+    if (new_args == NULL) {
+        perror("malloc");
+        exit(1);
+    }
+
+    for (int i = 0; i < num_args; i++) {
+        printf("%s item %d", args[i], num_args);
+        new_args[i] = strdup(args[i]);
+        if (new_args[i] == NULL) {
+            perror("strdup");
+            exit(1);
+        }
+    }
+    new_args[num_args] = NULL;
+
     int rc = fork();
     if (rc < 0) {// fork falhou
         fprintf(stderr, "fork falhou\n");
         exit(1);
     } 
     else if (rc == 0) { // filho
-        execvp("ls",args);  // roda wc
+        execvp("ls",new_args);  // roda wc
         printf("Isso nao deve ser imprimido");
     } 
     else {

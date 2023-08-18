@@ -14,7 +14,7 @@ int main(){
         entrada_t *program_args = quebra_entrada(entrada_usuario);
         int cont = leitura_string(GetPrograma(program_args));
         if(cont == 1){
-            ls(GetArgs(program_args));
+            ls(GetArgs(program_args), GetQuantItens(program_args));
         }else if(cont == 2){
             char** vetor = GetArgs(program_args);
             cd(vetor[0]);
