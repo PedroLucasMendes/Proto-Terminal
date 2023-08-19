@@ -78,10 +78,10 @@ int main(){
             } else {// Pai vem por aqui
                 int wc = wait(NULL);
             }
-        }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
+        }else if(GetQuantItens(program_args) <= 2 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
             int pipe_fds[2]; // Descritores de arquivo para o pipe
             int posicao_pipe = VerificaPipe(GetArgs(program_args),GetQuantItens(program_args));
-            
+            printf("para 1\n");
             if (pipe(pipe_fds) == -1) {
                 perror("pipe");
                 return 1;
@@ -133,7 +133,91 @@ int main(){
                 perror("fork sum_program");
                 return 1;
             }
-        }else{
+        }else if(GetQuantItens(program_args) > 2 && !VerificaIO(GetArgs(program_args),GetQuantItens(program_args)) && VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
+            int pipe_fds[2]; // Descritores de arquivo para o pipe
+            int posicao_pipe = VerificaPipe(GetArgs(program_args),GetQuantItens(program_args));
+            
+            if (pipe(pipe_fds) == -1) {
+                perror("pipe");
+                return 1;
+            }
+
+            int process_pid1, process_pid2;
+            
+            process_pid1 = fork();
+            if (process_pid1 == 0) {
+                // Filho 1 - Soma
+                
+                close(pipe_fds[0]); // Fecha a extremidade de leitura do pipe no filho
+                printf("oie");
+                dup2(pipe_fds[1], STDOUT_FILENO); // Redireciona a saída padrão para o pipe
+                
+                close(pipe_fds[1]);
+                
+                char *myargs[posicao_pipe+1];
+                char **args = GetArgs(program_args);
+                int i = 1;
+                VerificaExecutavel(GetPrograma(program_args));
+                myargs[0] = strdup(GetPrograma(program_args));
+                //printf("%s,%s\n",args[i],myargs[0]);
+                for(i = 1; i < VerificaPipe(GetArgs(program_args),GetQuantItens(program_args)); i++){
+                    //printf("%s,%s\n",args[i],myargs[0]);
+
+                    myargs[i] = strdup(args[i-1]);
+                }
+                //printf("%s", myargs[0]);
+                //printf("%s", myargs[1]);
+                //printf("%s", myargs[2]);
+                myargs[i] = NULL;
+                
+                execvp(myargs[0], myargs);  // roda wc
+                perror("Erro ao executar o programa de soma");
+                exit(1);
+            } else if (process_pid1 > 0) {
+                int wc = wait(NULL);
+                printf("oie2\n");
+                // Pai
+                process_pid2 = fork();
+                if (process_pid2 == 0) {
+                    // Filho 2 - Multiplicação
+                    close(pipe_fds[1]); // Fecha a extremidade de escrita do pipe no filho
+                    dup2(pipe_fds[0], STDIN_FILENO); // Redireciona a entrada padrão para o pipe
+                    close(pipe_fds[0]);
+                    char *myargs[(GetQuantItens(program_args)-posicao_pipe)+1];
+                    char **args = GetArgs(program_args);
+                    int i = VerificaPipe(GetArgs(program_args),GetQuantItens(program_args));
+                    //printf("%d\n",i);
+
+                    //strcat(program,GetArgs(program_args)[posicao_pipe]);
+                    VerificaExecutavel(GetArgs(program_args)[i]);
+                    myargs[0] = strdup(GetArgs(program_args)[i]);   // programa: "wc"
+                    int j,cont = 1;
+                    for(j = i+1; j < GetQuantItens(program_args); j++){
+                        //printf("%s,%d,%s\n",args[j],cont,myargs[0]);
+                        myargs[cont] = strdup(args[j]);
+                        cont++;
+                    }
+                    myargs[cont] = NULL;
+                    execvp(myargs[0], myargs);  // roda wc
+                    perror("Erro ao executar o programa de multiplicação");
+                    exit(1);
+                } else if (process_pid2 > 0) {
+                    // Pai
+                    close(pipe_fds[0]); // Fecha as extremidades do pipe no pai
+                    close(pipe_fds[1]);
+
+                    // Espera pelos filhos
+                    waitpid(process_pid1, NULL, 0);
+                    waitpid(process_pid2, NULL, 0);
+                } else {
+                    perror("fork mul_program");
+                    return 1;
+                }
+            } else {
+                perror("fork sum_program");
+                return 1;
+            }
+        }else{  
             int rc = fork();
             if (rc < 0) {// fork falhou
                 fprintf(stderr, "fork falhou\n");
