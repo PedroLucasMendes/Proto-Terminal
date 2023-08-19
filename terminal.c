@@ -21,7 +21,6 @@ int main(){
         }else if(cont == 3){
             pwd();
         }else if(VerificaExecutavel(GetPrograma(program_args)) && GetQuantItens(program_args) > 0 && !VerificaPipe(GetArgs(program_args),GetQuantItens(program_args))){
-            printf("oie");
             if(strcmp(GetArgs(program_args)[0],"&") == 0){
                 int rc = fork();
                 if (rc < 0) {// fork falhou
@@ -149,7 +148,6 @@ int main(){
                 // Filho 1 - Soma
                 
                 close(pipe_fds[0]); // Fecha a extremidade de leitura do pipe no filho
-                printf("oie");
                 dup2(pipe_fds[1], STDOUT_FILENO); // Redireciona a saída padrão para o pipe
                 
                 close(pipe_fds[1]);
@@ -175,7 +173,6 @@ int main(){
                 exit(1);
             } else if (process_pid1 > 0) {
                 int wc = wait(NULL);
-                printf("oie2\n");
                 // Pai
                 process_pid2 = fork();
                 if (process_pid2 == 0) {
@@ -193,7 +190,6 @@ int main(){
                     myargs[0] = strdup(GetArgs(program_args)[i]);   // programa: "wc"
                     int j,cont = 1;
                     for(j = i+1; j < GetQuantItens(program_args); j++){
-                        //printf("%s,%d,%s\n",args[j],cont,myargs[0]);
                         myargs[cont] = strdup(args[j]);
                         cont++;
                     }
