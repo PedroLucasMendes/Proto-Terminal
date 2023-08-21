@@ -20,6 +20,10 @@ Para compilar o projeto utilize as seguintes diretivas:
    ./terminal
 ~~~
 
+~~~cmd
+   >>>exit
+~~~
+
 ## :book: Processamento
 
 Ao executar o Proto-Terminal você poderá executar qualquer comando linux e ainda executar outros arquivos
