@@ -19,7 +19,7 @@ Para compilar o projeto utilize as seguintes diretivas:
    gcc parser.c terminal.c -o terminal;
    ./terminal
 ~~~
-
+Para sair do Proto-Terminal utilize o comando exit:
 ~~~cmd
    >>>exit
 ~~~
