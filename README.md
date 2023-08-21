@@ -1,5 +1,5 @@
 # Proto-Terminal
-# :hammer_and_wrench: Índice-Remissivo
+# :hammer_and_wrench: Proto-Terminal
 
 ### :trophy: Integrantes
 
