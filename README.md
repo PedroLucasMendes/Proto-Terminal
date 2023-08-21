@@ -3,13 +3,13 @@
 
 ### :trophy: Integrantes
 
-[Luan Carlos](https://github.com/luanacarlos) <br/>
-[Alcir Castro](https://github.com/heberkk) <br/>
-[Pedro Mendes](https://github.com/PedroLucasMendes) <br/>
+[Luan Carlos 22051002](https://github.com/luanacarlos) <br/>
+[Alcir Castro 22060030](https://github.com/heberkk) <br/>
+[Pedro Mendes 22060033](https://github.com/PedroLucasMendes) <br/>
 
 ## :books: Sobre o projeto
 
-Este projeto descreve os processos envolvidos durante a implementação de um programa que faz a criação de um terminal. Utilizando os conceitos da Sistemas Operacionais.
+Este projeto faz a implementação de um programa que tem o objetivo de criar um terminal. Utilizando os conceitos de Sistemas Operacionais.
 
 
 ## :file_folder: Compilação e Saída
