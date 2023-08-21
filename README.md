@@ -1,4 +1,3 @@
-# Proto-Terminal
 # :hammer_and_wrench: Proto-Terminal
 
 ### :trophy: Integrantes
