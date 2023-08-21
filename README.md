@@ -1,6 +1,6 @@
 # Proto-Terminal
 
-##Alunos
+## Alunos
 1. Alcir Heber Castro - 
 2. Luan Carlos Cunha Loureiro de Alencar -
 3. Pedro Lucas Bezerra Mendes -
