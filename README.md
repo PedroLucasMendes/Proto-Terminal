@@ -1,3 +1,9 @@
 # Proto-Terminal
-# Alunos: Alcir Heber Castro Figueiredo, Luan Carlos Cunha Loureiro de Alencar, Pedro Lucas Bezerra Mendes
-# Compilar: gcc parser.c terminal.c -o terminal
+
+##Alunos
+1. Alcir Heber Castro - 
+2. Luan Carlos Cunha Loureiro de Alencar -
+3. Pedro Lucas Bezerra Mendes -
+
+## Como compilar
+gcc terminal.c parser.c -o terminal
